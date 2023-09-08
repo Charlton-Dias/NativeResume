@@ -1,0 +1,32 @@
+{
+  "education": [
+    {
+      "studyType":" Post Graduation ",
+      "institution": "Goa University, Panjim ",
+      "description": "Master of Computer Application ",
+      "startDate": "08/2022 ",
+      "endDate": "Present"
+    },
+    {
+      "studyType":"Graduation ",
+      "institution": "Rosary College of Commerce & Arts, Navelim",
+      "description": "Bachelors of Computer Application",
+      "startDate": "08/2022 ",
+      "endDate": "07/ 2021 "
+    },
+    {
+      "studyType":"HSSC",
+      "institution": "Rosary Higher Secondary School, Navelim",
+      "description": "Computer Techniques (Vocational)",
+      "startDate": "06/2016 ",
+      "endDate": "04/2018 "
+    },
+    {
+      "studyType":"SSC",
+      "institution": "St. Joseph High School, Aquem ",
+      "description": "Goa Board",
+      "startDate": "06/2006",
+      "endDate": "04/2016 "
+    }
+  ]
+}
