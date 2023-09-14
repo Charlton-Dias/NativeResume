@@ -57,5 +57,12 @@ export default styles = StyleSheet.create({
     borderRadius: 30,
     alignSelf: 'center',
     marginTop: 20,
+  },
+  buttons: {
+    borderRadius: 10,
+    alignSelf: 'center',
+    width: '60%',
+    marginTop: 20,
+
   }
 });

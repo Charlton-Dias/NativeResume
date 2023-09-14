@@ -1,7 +1,7 @@
 import React from 'react';
-import type { PropsWithChildren } from 'react';
 import {
   SafeAreaView,
+  Button,
   ScrollView,
   StatusBar,
   Text,
@@ -10,45 +10,14 @@ import {
   View,
   Linking,
   FlatList,
+  TouchableOpacity,
 } from 'react-native';
-
 import styles from './styles';
-
+import Section from './src/Components/Section';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import Education from './src/Components/Education';
+import Skills from './src/Components/Skills';
 
-// import Icon from 'react-native-vector-icons/FontAwesome';
-
-import { education } from './data/education.json';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({ children, title }: SectionProps): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -57,19 +26,6 @@ function App(): JSX.Element {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  const skills = [
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "React",
-    "Node.js",
-    "BoltJS",
-    "MongoDB",
-    "SQL",
-    "Git",
-    "Trello",
-    "Insomia",
-    "VS Code"];
 
   const data = [
     {
@@ -84,6 +40,9 @@ function App(): JSX.Element {
     },
   ];
 
+  const [name, setName] = React.useState('Charlton Dias');
+  const [show, setShow] = React.useState(false);
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -97,12 +56,21 @@ function App(): JSX.Element {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-            
-          <Image source={require('./src/avatar.jpeg')} style={styles.image}/>
+
+          <Image source={require('./src/avatar.jpeg')} style={styles.image} />
 
           <Text style={styles.title}>
-            Charlton Dias
+            {name}
           </Text>
+
+          <TouchableOpacity style={styles.buttons}>
+            <Button
+              title='Toggle Full Name'
+              onPress={() => name == 'Charlton Dias' ?
+                setName("Charlton Julius Dias")
+                : setName("Charlton Dias")}
+            />
+          </TouchableOpacity>
 
           <Section title="About me" >
             <Text style={{ fontSize: 20 }}>
@@ -116,51 +84,34 @@ function App(): JSX.Element {
               data={data}
               renderItem={({ item }) =>
                 <View>
-                  <Text  style={{ color: 'orange', fontSize:18 }} onPress={() => Linking.openURL('https://' + item.link)}>
+                  <Text style={{ color: 'orange', fontSize: 18 }} onPress={() => Linking.openURL('https://' + item.link)}>
                     {/* <Icon name={item.icon} size={20} color="orange" /> */}
                     {' ' + item.slink + '\n'}
                   </Text>
                 </View>
               }
-              // keyExtractor={item => item.id}
+            // keyExtractor={item => item.id}
             />
           </Section>
-
-          <Section title="Skills & Tools">
-            <FlatList data={skills}
-              numColumns={4}
-              renderItem={({ item }) =>
-                <Text style={styles.tags}>
-                  {item}
-                </Text>
+          
+          <TouchableOpacity style={styles.buttons}>
+            <Button
+              title={show ? 'Hide Skills & Education' : 'Show Skills & Education'}
+              onPress={() => show ?
+                setShow(false)
+                : setShow(true)
               }
             />
-          </Section>
+          </TouchableOpacity>
 
-          <Section title="Education" >
-            <FlatList
-              data={education}
-              renderItem={({ item }) =>
-                <View style={styles.educationItem}>
-                  <Text style={{ fontSize: 20 }}>
-                    {item.studyType + "\n"}
-                  </Text>
-
-                  <Text style={{ fontSize: 18 }}>
-                    {item.description + "\n"}
-                  </Text>
-
-                  <Text style={{ fontSize: 18 }}>
-                    {item.institution + "\n"}
-                  </Text>
-
-                  <Text>
-                    {item.startDate + " - " + item.endDate + "\n"}
-                  </Text>
-                </View>
-              }
-            />
-          </Section>
+          {show ?
+            <>
+              <Skills />
+              <Education />
+            </>
+            :
+            <></>
+          }
         </View>
       </ScrollView>
     </SafeAreaView>
